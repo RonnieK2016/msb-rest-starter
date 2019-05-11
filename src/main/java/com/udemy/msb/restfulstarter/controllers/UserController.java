@@ -1,6 +1,7 @@
 package com.udemy.msb.restfulstarter.controllers;
 
 import com.udemy.msb.restfulstarter.domain.User;
+import com.udemy.msb.restfulstarter.exceptions.UserNotFoundException;
 import com.udemy.msb.restfulstarter.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     User getUserById(@PathVariable Long id) {
-        return userService.findById(id);
+        User user = userService.findById(id);
+
+        if(user == null) {
+            throw new UserNotFoundException(String.format("User with id %s not found", id));
+        }
+
+        return user;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
