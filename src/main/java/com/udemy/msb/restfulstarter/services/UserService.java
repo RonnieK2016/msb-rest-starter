@@ -12,5 +12,7 @@ public interface UserService {
 
     User findById(Long id);
 
+    void deleteUserById(Long id);
+
     int totalUsers();
 }

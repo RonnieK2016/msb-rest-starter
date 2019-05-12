@@ -1,6 +1,8 @@
 package com.udemy.msb.restfulstarter.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Long id;
@@ -10,6 +12,8 @@ public class User {
     private String lastName;
 
     private Date birthDate;
+
+    private List<Post> posts = new ArrayList<>();
 
     public User(Long id, String firstName, String lastName, Date birthDate) {
         this.id = id;
@@ -48,5 +52,13 @@ public class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void addPost(Post post) {
+        posts.add(post);
     }
 }
