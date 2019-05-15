@@ -1,5 +1,7 @@
 package com.udemy.msb.restfulstarter.domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,10 +9,13 @@ import java.util.List;
 public class User {
     private Long id;
 
+    @NotBlank
     private String firstName;
 
+    @NotBlank
     private String lastName;
 
+    @Past
     private Date birthDate;
 
     private List<Post> posts = new ArrayList<>();

@@ -8,6 +8,7 @@ import com.udemy.msb.restfulstarter.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/")
-    User createUser(@RequestBody User user) {
+    User createUser(@Valid @RequestBody User user) {
         return userService.saveUser(user);
     }
 
