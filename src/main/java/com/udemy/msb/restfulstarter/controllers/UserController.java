@@ -5,6 +5,8 @@ import com.udemy.msb.restfulstarter.domain.User;
 import com.udemy.msb.restfulstarter.exceptions.UserNotFoundException;
 import com.udemy.msb.restfulstarter.services.PostService;
 import com.udemy.msb.restfulstarter.services.UserService;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +31,19 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    User getUserById(@PathVariable Long id) {
+    Resource<User> getUserById(@PathVariable Long id) {
         User user = userService.findById(id);
 
         if(user == null) {
             throw new UserNotFoundException(String.format("User with id %s not found", id));
         }
 
-        return user;
+        Resource<User> resource = new Resource<>(user);
+        ControllerLinkBuilder controllerLinkBuilder = ControllerLinkBuilder
+                .linkTo(ControllerLinkBuilder.methodOn(this.getClass()).getAllUsers());
+        resource.add(controllerLinkBuilder.withRel("all-users"));
+
+        return resource;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
