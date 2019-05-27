@@ -3,6 +3,7 @@ package com.udemy.msb.restfulstarter.domain;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -11,7 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 @ApiModel("User Details")
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
@@ -26,7 +31,12 @@ public class User {
     @ApiModelProperty("Birth Date: should be in the past")
     private Date birthDate;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
+
+    //default for jpa
+    public User() {
+    }
 
     public User(Long id, String firstName, String lastName, Date birthDate) {
         this.id = id;

@@ -14,5 +14,5 @@ public interface UserService {
 
     void deleteUserById(Long id);
 
-    int totalUsers();
+    long totalUsers();
 }

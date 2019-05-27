@@ -55,7 +55,7 @@ public class UserServiceMap implements UserService {
     }
 
     @Override
-    public int totalUsers() {
+    public long totalUsers() {
         return storage.size();
     }
 }
